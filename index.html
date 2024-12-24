@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Navidad</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #002b5b, #1c5c74);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .navbar {
+            width: 100%;
+            padding: 10px 0;
+            background: linear-gradient(to bottom, #002b5b, #1c5c74);
+            display: flex;
+            justify-content: space-around;
+            position: fixed;
+            top: 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar .light {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: red;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            animation: blink 1.5s infinite alternate;
+        }
+
+        .navbar .light:nth-child(3n+1) {
+            background: yellow;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+            animation-delay: 0.5s;
+        }
+
+        .navbar .light:nth-child(3n+2) {
+            background: green;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+            animation-delay: 1s;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.4;
+            }
+        }
+
+        .card {
+            background: white;
+            width: 400px;
+            height: 300px;
+            border-radius: 15px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-top: 100px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card .content {
+            display: none;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #1c5c74;
+        }
+
+        .card.open .content {
+            display: block;
+        }
+
+        .card h1 {
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            font-size: 2rem;
+            color: #1c5c74;
+            text-shadow: 2px 2px 10px #002b5b;
+        }
+
+        .card .hint {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 1.5rem;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(800px);
+                opacity: 0;
+            }
+        }
+
+        .audio-bar {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .audio-bar p {
+            margin: 0;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .audio-bar button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #1c5c74;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .audio-bar button:hover {
+            background: #14505c;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+    </div>
+    <div class="card" onclick="toggleCard(this)">
+        <h1>Feliz Navidad 🎄</h1>
+        <div class="hint">¡Dame clic para abrir!</div>
+        <div class="content">
+            ¡Que tengas unas fiestas maravillosas! 🌟
+        </div>
+    </div>
+    <div class="audio-bar">
+        <p>Reproduceme:</p>
+        <button onclick="playAudio()">▶ Reproducir </button>
+    </div>
+
+    <script>
+        const createSnowflake = () => {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            snowflake.style.fontSize = `${Math.random() * 1.5 + 1}rem`;
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        };
+
+        setInterval(createSnowflake, 200);
+
+        function toggleCard(card) {
+            card.classList.toggle('open');
+        }
+
+        function playAudio() {
+            const audio = new Audio('audio/burritosabanero.mp3');
+            audio.play();
+        }
+    </script>
+</body>
+</html>
